@@ -14,10 +14,8 @@ fn main() {
         File::open("src/question.json").expect("Failed to reading file: question.json.");
     let subjects: Vec<Subject> = serde_json::from_reader(questions_file).unwrap();
 
-    let mut count = 0;
     let length = subjects.len();
-    for subject in &subjects {
-        count += 1;
+    for (count, subject) in subjects.iter().enumerate() {
         loop {
             println!(
                 "{}{}{}/{} 問題：{}{}",
@@ -28,13 +26,16 @@ fn main() {
                 subject.question,
                 style::Reset
             );
+
             let mut guess = String::new();
             println!(
                 "{}請輸入答案：{}",
                 color::Fg(color::LightBlack),
                 style::Reset
             );
+
             io::stdin().read_line(&mut guess).expect("請輸入一些文字");
+
             if guess.trim().to_lowercase() == subject.answer {
                 println!(
                     "{}答對了，你好棒 owo{}",
