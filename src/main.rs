@@ -27,7 +27,7 @@ fn main() {
             println!("{}請輸入答案：{}", color::Fg(color::LightBlack), style::Reset);
             io::stdin().read_line(&mut guess)
                 .expect("請輸入一些文字");
-            if guess.trim() == subject.answer {
+            if guess.trim().to_lowercase() == subject.answer {
                 println!("{}答對了，你好棒 owo{}", color::Fg(color::Yellow), style::Reset);
                 break;
             } else {
