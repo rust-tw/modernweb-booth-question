@@ -21,7 +21,7 @@ fn main() {
                 "{}{}{}/{} 問題：{}{}",
                 color::Fg(color::Cyan),
                 style::Bold,
-                count,
+                count + 1,
                 length,
                 subject.question,
                 style::Reset
