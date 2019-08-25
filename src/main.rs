@@ -11,6 +11,18 @@ struct Subject {
 fn main() {
     let subjects = vec![
         Subject {
+            question: String::from("Rust 1.0 在哪一年釋出？"),
+            answer: String::from("2015年")
+        },
+        Subject {
+            question: String::from("Rust.tw 的聚會時間在什麼時候？"),
+            answer: String::from("每個月的最後一個星期六晚上七點半")
+        },
+        Subject {
+            question: String::from("以 Rust 開發的瀏覽器引擎叫什麼名字？"),
+            answer: String::from("Servo")
+        },
+        Subject {
             question: String::from("2016年stackoverflow most loved language 是？"),
             answer: String::from("Rust")
         },
@@ -25,6 +37,10 @@ fn main() {
         Subject {
             question: String::from("2019年stackoverflow most loved language 是？"),
             answer: String::from("Rust")
+        },
+        Subject {
+            question: String::from("為了安全性，Rust不支援哪種OOP語法？"),
+            answer: String::from("inheritance")
         },
     ];
     let mut count = 0;
