@@ -42,6 +42,10 @@ fn main() {
             question: String::from("為了安全性，Rust不支援哪種OOP語法？"),
             answer: String::from("inheritance")
         },
+        Subject {
+            question: String::from("Facebook 用 Rust 開發的區塊鏈數位貨幣叫做？"),
+            answer: String::from("Libra")
+        },
     ];
     let mut count = 0;
     let length = subjects.len();
@@ -53,7 +57,7 @@ fn main() {
             println!("{}請輸入答案：{}", color::Fg(color::LightBlack), style::Reset);
             io::stdin().read_line(&mut guess)
                 .expect("請輸入一些文字");
-            if guess.trim() == subject.answer {
+            if guess.trim().to_lowercase() == subject.answer {
                 println!("{}答對了，你好棒 owo{}", color::Fg(color::Yellow), style::Reset);
                 break;
             } else {
