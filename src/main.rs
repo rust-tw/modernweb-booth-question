@@ -38,14 +38,14 @@ fn main() {
 
             if guess.trim().to_lowercase() == subject.answer {
                 println!(
-                    "{}答對了，你好棒 owo{}",
+                    "{}答對了，你好棒 owo\n{}",
                     color::Fg(color::Yellow),
                     style::Reset
                 );
                 break;
             } else {
                 println!(
-                    "{}叭叭，答錯了 OAO{}",
+                    "{}叭叭，答錯了 OAO\n{}",
                     color::Fg(color::LightRed),
                     style::Reset
                 );
