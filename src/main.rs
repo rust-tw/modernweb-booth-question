@@ -45,4 +45,5 @@ fn main() {
             }
         }
     }
+    println!("{}你全部都答對了耶，可以領個小禮物 OwO{}", color::Fg(color::LightYellow), style::Reset);
 }
