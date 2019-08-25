@@ -38,10 +38,14 @@
         "question": "為了安全性，Rust不支援哪種OOP語法？",
         "answer": "inheritance"
     },
-    
+
     {
         "question": "Facebook 用 Rust 開發的區塊鏈數位貨幣叫做？",
         "answer": "Libra"
-    }
+    },
 
+    {
+        "question": "Rust Taiwan 的Telegram 群組的網址？",
+        "answer": "https://t.me/rust_tw"
+    }
 ]
