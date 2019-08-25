@@ -1,0 +1,42 @@
+[
+    {
+        "question": "Rust 1.0 在哪一年釋出？",
+        "answer": "2015年"
+    },
+
+    {
+        "question": "Rust.tw 的聚會時間在什麼時候？",
+        "answer": "每個月的最後一個星期六晚上七點半"
+    },
+
+    {
+        "question": "以 Rust 開發的瀏覽器引擎叫什麼名字？",
+        "answer": "Servo"
+    },
+
+    {
+        "question": "2016年stackoverflow most loved language 是？",
+        "answer": "Rust"
+    },
+
+    {
+        "question": "2017年stackoverflow most loved language 是？",
+        "answer": "Rust"
+    },
+
+    {
+        "question": "2018年stackoverflow most loved language 是？",
+        "answer": "Rust"
+    },
+
+    {
+        "question": "2019年stackoverflow most loved language 是？",
+        "answer": "Rust"
+    },
+
+    {
+        "question": "為了安全性，Rust不支援哪種OOP語法？",
+        "answer": "inheritance"
+    }
+
+]
