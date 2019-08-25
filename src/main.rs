@@ -15,9 +15,12 @@ fn main() {
             answer: String::from("襪嗚")
         }
     ];
+    let mut count = 0;
+    let length = subjects.len();
     for subject in &subjects {
+        count += 1;
         loop {
-            println!("{}{}問題：{}{}", color::Fg(color::Cyan), style::Bold, subject.question, style::Reset);
+            println!("{}{}{}/{} 問題：{}{}", color::Fg(color::Cyan), style::Bold, count, length, subject.question, style::Reset);
             let mut guess = String::new();
             println!("{}請輸入答案：{}", color::Fg(color::LightBlack), style::Reset);
             io::stdin().read_line(&mut guess)
