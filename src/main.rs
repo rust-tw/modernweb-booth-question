@@ -1,6 +1,7 @@
-use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::io;
+
+use serde::{Deserialize, Serialize};
 use termion::{color, style};
 
 #[derive(Debug, Serialize, Deserialize)]
