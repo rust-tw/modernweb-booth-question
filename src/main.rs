@@ -11,9 +11,21 @@ struct Subject {
 fn main() {
     let subjects = vec![
         Subject {
-            question: String::from("測試"),
-            answer: String::from("襪嗚")
-        }
+            question: String::from("2016年stackoverflow most loved language 是？"),
+            answer: String::from("Rust")
+        },
+        Subject {
+            question: String::from("2017年stackoverflow most loved language 是？"),
+            answer: String::from("Rust")
+        },
+        Subject {
+            question: String::from("2018年stackoverflow most loved language 是？"),
+            answer: String::from("Rust")
+        },
+        Subject {
+            question: String::from("2019年stackoverflow most loved language 是？"),
+            answer: String::from("Rust")
+        },
     ];
     let mut count = 0;
     let length = subjects.len();
