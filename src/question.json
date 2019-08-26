@@ -15,28 +15,23 @@
     },
 
     {
-        "question": "2016年stackoverflow most loved language 是？\n1. Rust 2. 隔壁的Python 3. 隔壁的JavaScript 4. 隔壁的Kotlin 5. 隔壁的php",
+        "question": "2016年stackoverflow most loved language 是？\n1. Rust 2. Python 3. JavaScript 4. Kotlin 5. php",
         "answer": "1"
     },
 
     {
-        "question": "2017年stackoverflow most loved language 是？\n1. 隔壁的Python 2. Rust 3. 隔壁的JavaScript 4. 隔壁的Kotlin 5. 隔壁的php",
+        "question": "2017年stackoverflow most loved language 是？\n1. Python 2. Rust 3. JavaScript 4. Kotlin 5. php",
         "answer": "2"
     },
 
     {
-        "question": "2018年stackoverflow most loved language 是？\n1. 隔壁的JavaScript 2. 隔壁的Python 3. Rust 4. 隔壁的Kotlin 5. 隔壁的php",
+        "question": "2018年stackoverflow most loved language 是？\n1. JavaScript 2. Python 3. Rust 4. Kotlin 5. php",
         "answer": "3"
     },
 
     {
-        "question": "2019年stackoverflow most loved language 是？\n1. 隔壁的Kotlin 2. 隔壁的Python 3. 隔壁的JavaScript 4. Rust 5. 隔壁的php",
+        "question": "2019年stackoverflow most loved language 是？\n1. Kotlin 2. Python 3. JavaScript 4. Rust 5. php",
         "answer": "4"
-    },
-
-    {
-        "question": "為了安全性，Rust不支援哪種OOP語法？\n1: method, 2: composition, 3: inheritance, 4: type class/trait",
-        "answer": "3"
     },
 
     {
