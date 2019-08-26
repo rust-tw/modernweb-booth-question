@@ -26,8 +26,8 @@ answers = [
 [[subjects]]
 question = "以 Rust 開發的瀏覽器引擎叫什麼名字？"
 answers = [
-    { text = "Doge", right = true },
-    { text = "Servo" },
+    { text = "Doge" },
+    { text = "Servo", right = true },
     { text = "Gecko" },
     { text = "Wow" },
 ]
