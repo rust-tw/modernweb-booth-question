@@ -42,10 +42,5 @@
     {
         "question": "Facebook 用 Rust 開發的區塊鏈數位貨幣叫做？\n1. LibreOffice 2. Doge 3. Libra 4. Facebook Coin",
         "answer": "3"
-    },
-
-    {
-        "question": "Rust Taiwan 的Telegram 群組的網址？\n1. https://t.me/rust_tw 2. https://t.me/rust_tw1 3. https://t.me/rust_tw2 4. https://t.me/rust_tw3",
-        "answer": "1"
     }
 ]

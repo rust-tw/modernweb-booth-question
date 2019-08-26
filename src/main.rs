@@ -39,4 +39,10 @@ fn main() {
         "{}",
         "你全部都答對了耶，歡迎拍下過關畫面，到南休息區「Code Dojo 技術傳道場」Mozilla 攤位領個小禮物 OwO".bright_yellow()
     );
+
+    println!(
+        "{}",
+        "我們是 Rust Taiwan，歡迎加入我們，我們的群組：http://t.me/rust_tw"
+            .bright_yellow()
+    );
 }
