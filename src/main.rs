@@ -1,62 +1,207 @@
+use std::{env, io};
+use std::collections::HashSet;
 use std::fs::File;
-use std::io;
+use std::io::Write;
+use std::path::Path;
 
 use serde::{Deserialize, Serialize};
 use termion::{color, style};
+use termion::event::Key;
+use termion::input::TermRead;
+use termion::raw::IntoRawMode;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Subject {
     question: String,
-    answer: String,
+    answers: Vec<Answer>,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+struct Answer {
+    text: String,
+    right: Option<bool>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Addition {
+    mark: Option<String>,
+    items: Option<Vec<String>>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Modernweb {
+    addition: Option<Addition>,
+    subjects: Vec<Subject>,
+}
+
+impl Addition {
+    pub fn item_text(&self, ix: usize) -> String {
+        if let Some(items) = &self.items {
+            return items.iter().enumerate()
+                .find(|(i, _)| &ix == i)
+                .map_or((ix + 1).to_string(), |(_, t)| t.to_string())
+        }
+        (ix + 1).to_string()
+    }
+
+    pub fn mark(&self) -> String {
+        self.mark.clone().map_or(".".to_string(), |v| v)
+    }
+}
+
+impl Modernweb {
+    pub fn addition(&self) -> &Option<Addition> {
+        &self.addition
+    }
+}
+
+impl Subject {
+    pub fn right_answers(&self) -> Vec<usize> {
+        self.answers.iter().enumerate()
+            .filter(|(_, item)| item.right.is_some() && item.right == Some(true))
+            .map(|(ix, _)| ix)
+            .collect()
+    }
+}
+
+macro_rules! rprintln {
+    () => (print!("\r\n"));
+    ($($arg:tt)*) => ({
+        print!($($arg)*);
+        rprintln!();
+    })
+}
+
+
 fn main() {
-    let questions_file =
-        File::open("src/question.json").expect("Failed to reading file: question.json.");
-    let subjects: Vec<Subject> = serde_json::from_reader(questions_file).unwrap();
+    let args: Vec<String> = env::args().collect();
 
+    let toml_file = args.get(1).map_or("src/question.toml".to_string(), |v| v.to_string());
+
+    let question_text = std::fs::read_to_string(Path::new(&toml_file[..])).expect("Failed to reading file: question.toml");
+    let modernweb: Modernweb = toml::from_str(&question_text[..]).expect("question.toml format fail");
+    let subjects = &modernweb.subjects;
     let length = subjects.len();
+
+    let mut stdout = io::stdout().into_raw_mode().unwrap();
+    write!(stdout, "{}{}", termion::clear::All, termion::cursor::Goto(1, 1)).unwrap();
+    stdout.flush().unwrap();
+
     for (count, subject) in subjects.iter().enumerate() {
+        let answer_len = subject.answers.len();
+        let mut pass = None;
+        let mut current = None;
+        let mut selected: HashSet<usize> = HashSet::new();
         loop {
-            println!(
-                "{}{}{}/{} 問題：{}{}",
-                color::Fg(color::Cyan),
-                style::Bold,
-                count + 1,
-                length,
-                subject.question,
-                style::Reset
-            );
+            draw_question(&modernweb, subject, count, length, &current, &selected, pass);
 
-            let mut guess = String::new();
-            println!(
-                "{}請輸入答案：{}",
-                color::Fg(color::LightBlack),
-                style::Reset
-            );
+            for c in io::stdin().keys() {
+                write!(stdout, "{}{}", termion::clear::All, termion::cursor::Goto(1, 1)).unwrap();
+                match c.unwrap() {
+                    Key::Char(' ') => {
+                        if let Some(ix) = current {
+                            if selected.contains(&ix) {
+                                selected.remove(&ix);
+                            } else {
+                                selected.insert(ix);
+                            }
+                            draw_question(&modernweb, subject, count, length, &current, &selected, pass);
+                        }
+                    }
+                    Key::Char('\n') => {
+                        if selected.is_empty() {
+                            pass = Some(false);
+                            draw_question(&modernweb, subject, count, length, &current, &selected, pass);
+                            continue
+                        }
 
-            io::stdin().read_line(&mut guess).expect("請輸入一些文字");
-
-            if guess.trim().to_lowercase() == subject.answer {
-                println!(
-                    "{}答對了，你好棒 owo\n{}",
-                    color::Fg(color::Yellow),
-                    style::Reset
-                );
-                break;
-            } else {
-                println!(
-                    "{}叭叭，答錯了 OAO\n{}",
-                    color::Fg(color::LightRed),
-                    style::Reset
-                );
+                        let mut right = true;
+                        let right_answers = subject.right_answers();
+                        for x in &selected {
+                            if !right_answers.contains(x) {
+                                pass = Some(false);
+                                right = false;
+                            }
+                        }
+                        if right { break; }
+                        draw_question(&modernweb, subject, count, length, &current, &selected, pass);
+                    },
+                    Key::Ctrl('c') => return,
+                    Key::Up => {
+                        pass = None;
+                        current = Some(cloc_position(&current, answer_len, 1));
+                        draw_question(&modernweb, subject, count, length, &current, &selected, pass);
+                    }
+                    Key::Down => {
+                        pass = None;
+                        current = Some(cloc_position(&current, answer_len, 2));
+                        draw_question(&modernweb, subject, count, length, &current, &selected, pass);
+                    }
+                    _ => {}
+                }
             }
+            break
         }
     }
 
-    println!(
+    rprintln!(
         "{}你全部都答對了耶，可以領個小禮物 OwO{}",
         color::Fg(color::LightYellow),
         style::Reset
     );
+}
+
+fn cloc_position(current: &Option<usize>, len: usize, direct: u8) -> usize {
+    match direct {
+        // up
+        1 => {
+            if current == &None { return len - 1; }
+            let c = current.unwrap();
+            if c == 0 { return len - 1; }
+            c - 1
+        }
+        // down
+        2 => {
+            if current == &None { return 0; }
+            let next = current.unwrap() + 1;
+            if next == len { return 0; }
+            next
+        }
+        _ => 0
+    }
+}
+
+fn draw_question(modernweb: &Modernweb, subject: &Subject, count: usize, length: usize, current: &Option<usize>, selected: &HashSet<usize>, pass: Option<bool>) {
+    rprintln!(
+        "{}{}{}/{} 問題：{}{}",
+        color::Fg(color::Cyan),
+        style::Bold,
+        count + 1,
+        length,
+        subject.question,
+        style::Reset
+    );
+    for (ix, answer) in subject.answers.iter().enumerate() {
+        let mark_current = if let Some(i) = current { if i == &ix { "o" } else { " " } } else { " " };
+        let mark_selected = if selected.iter().find(|&&item| item == ix).is_some() { "√" } else { " " };
+        let item_text = if let Some(addition) = modernweb.addition() { addition.item_text(ix) } else { (ix + 1).to_string() };
+        let mark = if let Some(addition) = modernweb.addition() { addition.mark() } else { ".".to_string() };
+        rprintln!(
+            "{}{}{} {} {}{} {}",
+            color::Fg(color::Blue),
+            item_text,
+            mark,
+            answer.text,
+            color::Fg(color::Red),
+            mark_current,
+            mark_selected
+        )
+    }
+    if let Some(false) = pass {
+        rprintln!(
+            "{}叭叭，答錯了 OAO\n{}",
+            color::Fg(color::LightRed),
+            style::Reset
+        );
+    }
 }
