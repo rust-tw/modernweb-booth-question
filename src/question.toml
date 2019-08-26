@@ -1,0 +1,105 @@
+
+[addition]
+
+mark = ")"
+items = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" ]
+
+
+[[subjects]]
+question = "Rust 1.0 在哪一年釋出？"
+answers = [
+    { text = "2012 年" },
+    { text = "2013 年" },
+    { text = "2014 年" },
+    { text = "2015 年", right = true },
+]
+
+[[subjects]]
+question = "Rust.tw 的聚會時間在什麼時候？"
+answers = [
+    { text = "每個月的最後一個星期六晚上七點半", right = true },
+    { text = "每個月的最後一個星期六晚上八點半" },
+    { text = "每個月的最後一個星期六晚上九點半" },
+    { text = "每個月的最後一個星期六晚上十點半" },
+]
+
+[[subjects]]
+question = "以 Rust 開發的瀏覽器引擎叫什麼名字？"
+answers = [
+    { text = "Doge" },
+    { text = "Servo", right = true },
+    { text = "Gecko" },
+    { text = "Wow" },
+]
+
+
+[[subjects]]
+question = "2016 年 stackoverflow most loved language 是？"
+answers = [
+    { text = "Rust", right = true },
+    { text = "隔壁的 Python" },
+    { text = "隔壁的 JavaScript" },
+    { text = "隔壁的 Kotlin" },
+    { text = "隔壁的 PHP" },
+]
+
+
+
+[[subjects]]
+question = "2017 年 stackoverflow most loved language 是？"
+answers = [
+    { text = "隔壁的 Python" },
+    { text = "Rust", right = true },
+    { text = "隔壁的 JavaScript" },
+    { text = "隔壁的 Kotlin" },
+    { text = "隔壁的 PHP" },
+]
+
+[[subjects]]
+question = "2018 年 stackoverflow most loved language 是？"
+answers = [
+    { text = "隔壁的 JavaScript" },
+    { text = "隔壁的 Python" },
+    { text = "Rust", right = true },
+    { text = "隔壁的 Kotlin" },
+    { text = "隔壁的 PHP" },
+]
+
+[[subjects]]
+question = "2019 年 stackoverflow most loved language 是？"
+answers = [
+    { text = "隔壁的 Kotlin" },
+    { text = "隔壁的 Python" },
+    { text = "隔壁的 JavaScript" },
+    { text = "Rust", right = true },
+    { text = "隔壁的 PHP" },
+]
+
+[[subjects]]
+question = "為了安全性，Rust 不支援哪種 OOP 語法？"
+answers = [
+    { text = "method" },
+    { text = "composition" },
+    { text = "inheritance", right = true },
+    { text = "type class/trait" },
+]
+
+[[subjects]]
+question = "Facebook 用 Rust 開發的區塊鏈數位貨幣叫做？"
+answers = [
+    { text = "LibreOffice" },
+    { text = "Doge" },
+    { text = "Libra", right = true },
+    { text = "Facebook Coin" },
+]
+
+[[subjects]]
+question = "Rust Taiwan 的 Telegram 群組的網址？"
+answers = [
+    { text = "https://t.me/rust_tw", right = true },
+    { text = "https://t.me/rust_tw1" },
+    { text = "https://t.me/rust_tw2" },
+    { text = "https://t.me/rust_tw3" },
+]
+
+
