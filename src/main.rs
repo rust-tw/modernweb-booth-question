@@ -1,8 +1,8 @@
 use std::fs::File;
 use std::io;
 
+use colored::*;
 use serde::{Deserialize, Serialize};
-use termion::{color, style};
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Subject {
@@ -18,45 +18,25 @@ fn main() {
     let length = subjects.len();
     for (count, subject) in subjects.iter().enumerate() {
         loop {
-            println!(
-                "{}{}{}/{} 問題：{}{}",
-                color::Fg(color::Cyan),
-                style::Bold,
-                count + 1,
-                length,
-                subject.question,
-                style::Reset
-            );
+            let question = format!("{}/{} 問題：{}", count + 1, length, subject.question);
+            println!("{}", question.cyan().bold());
 
             let mut guess = String::new();
-            println!(
-                "{}請輸入答案：{}",
-                color::Fg(color::LightBlack),
-                style::Reset
-            );
+            println!("{}", "請輸入答案：".bright_black());
 
             io::stdin().read_line(&mut guess).expect("請輸入一些文字");
 
             if guess.trim().to_lowercase() == subject.answer {
-                println!(
-                    "{}答對了，你好棒 owo\n{}",
-                    color::Fg(color::Yellow),
-                    style::Reset
-                );
+                println!("{}", "答對了，你好棒 owo\n".yellow());
                 break;
             } else {
-                println!(
-                    "{}叭叭，答錯了 OAO\n{}",
-                    color::Fg(color::LightRed),
-                    style::Reset
-                );
+                println!("{}", "叭叭，答錯了 OAO\n".bright_red());
             }
         }
     }
 
     println!(
-        "{}你全部都答對了耶，可以領個小禮物 OwO{}",
-        color::Fg(color::LightYellow),
-        style::Reset
+        "{}",
+        "你全部都答對了耶，歡迎拍下過關畫面，到南休息區「Code Dojo 技術傳道場」Mozilla 攤位領個小禮物 OwO".bright_yellow()
     );
 }
