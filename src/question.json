@@ -1,0 +1,51 @@
+[
+    {
+        "question": "Rust 1.0 在哪一年釋出？\n1. 2012 年 2. 2013 年 3. 2014 年 4. 2015 年",
+        "answer": "4"
+    },
+
+    {
+        "question": "Rust.tw 的聚會時間在什麼時候？\n1. 每個月的最後一個星期六晚上七點半 2. 每個月的最後一個星期六晚上八點半 3. 每個月的最後一個星期六晚上九點半 4. 每個月的最後一個星期六晚上十點半",
+        "answer": "1"
+    },
+
+    {
+        "question": "以 Rust 開發的瀏覽器引擎叫什麼名字？\n1. Doge 2. Servo 3. Gecko 4. Wow",
+        "answer": "2"
+    },
+
+    {
+        "question": "2016年stackoverflow most loved language 是？\n1. Rust 2. 隔壁的Python 3. 隔壁的JavaScript 4. 隔壁的Kotlin 5. 隔壁的php",
+        "answer": "1"
+    },
+
+    {
+        "question": "2017年stackoverflow most loved language 是？\n1. 隔壁的Python 2. Rust 3. 隔壁的JavaScript 4. 隔壁的Kotlin 5. 隔壁的php",
+        "answer": "2"
+    },
+
+    {
+        "question": "2018年stackoverflow most loved language 是？\n1. 隔壁的JavaScript 2. 隔壁的Python 3. Rust 4. 隔壁的Kotlin 5. 隔壁的php",
+        "answer": "3"
+    },
+
+    {
+        "question": "2019年stackoverflow most loved language 是？\n1. 隔壁的Kotlin 2. 隔壁的Python 3. 隔壁的JavaScript 4. Rust 5. 隔壁的php",
+        "answer": "4"
+    },
+
+    {
+        "question": "為了安全性，Rust不支援哪種OOP語法？\n1: method, 2: composition, 3: inheritance, 4: type class/trait",
+        "answer": "3"
+    },
+
+    {
+        "question": "Facebook 用 Rust 開發的區塊鏈數位貨幣叫做？\n1. LibreOffice 2. Doge 3. Libra 4. Facebook Coin",
+        "answer": "3"
+    },
+
+    {
+        "question": "Rust Taiwan 的Telegram 群組的網址？\n1. https://t.me/rust_tw 2. https://t.me/rust_tw1 3. https://t.me/rust_tw2 4. https://t.me/rust_tw3",
+        "answer": "1"
+    }
+]
