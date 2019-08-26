@@ -1,4 +1,5 @@
 use std::{env, io};
+use std::{thread, time};
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::Write;
@@ -39,7 +40,7 @@ impl Addition {
         if let Some(items) = &self.items {
             return items.iter().enumerate()
                 .find(|(i, _)| &ix == i)
-                .map_or((ix + 1).to_string(), |(_, t)| t.to_string())
+                .map_or((ix + 1).to_string(), |(_, t)| t.to_string());
         }
         (ix + 1).to_string()
     }
@@ -61,6 +62,10 @@ impl Subject {
             .filter(|(_, item)| item.right.is_some() && item.right == Some(true))
             .map(|(ix, _)| ix)
             .collect()
+    }
+
+    pub fn multi_answer(&self) -> bool {
+        self.right_answers().len() > 1
     }
 }
 
@@ -100,32 +105,35 @@ fn main() {
                 match c.unwrap() {
                     Key::Char(' ') => {
                         if let Some(ix) = current {
-                            if selected.contains(&ix) {
-                                selected.remove(&ix);
+                            let multi_answer = subject.multi_answer();
+                            if multi_answer {
+                                if selected.contains(&ix) {
+                                    selected.remove(&ix);
+                                } else {
+                                    selected.insert(ix);
+                                }
                             } else {
+                                selected.clear();
                                 selected.insert(ix);
                             }
+                            if !multi_answer {
+                                pass = Some(check_pass(&subject.right_answers(), &selected));
+                            }
                             draw_question(&modernweb, subject, count, length, &current, &selected, pass);
+                            if let Some(true) = pass { break; }
                         }
                     }
                     Key::Char('\n') => {
                         if selected.is_empty() {
                             pass = Some(false);
                             draw_question(&modernweb, subject, count, length, &current, &selected, pass);
-                            continue
+                            continue;
                         }
 
-                        let mut right = true;
-                        let right_answers = subject.right_answers();
-                        for x in &selected {
-                            if !right_answers.contains(x) {
-                                pass = Some(false);
-                                right = false;
-                            }
-                        }
-                        if right { break; }
+                        pass = Some(check_pass(&subject.right_answers(), &selected));
                         draw_question(&modernweb, subject, count, length, &current, &selected, pass);
-                    },
+                        if let Some(true) = pass { break; }
+                    }
                     Key::Ctrl('c') => return,
                     Key::Up => {
                         pass = None;
@@ -140,7 +148,13 @@ fn main() {
                     _ => {}
                 }
             }
-            break
+
+            let ten_millis = time::Duration::from_millis(300);
+            let now = time::Instant::now();
+
+            thread::sleep(ten_millis);
+            write!(stdout, "{}{}", termion::clear::All, termion::cursor::Goto(1, 1)).unwrap();
+            break;
         }
     }
 
@@ -149,6 +163,19 @@ fn main() {
         color::Fg(color::LightYellow),
         style::Reset
     );
+}
+
+fn check_pass(right_answers: &Vec<usize>, selected: &HashSet<usize>) -> bool {
+    if selected.is_empty() { return false; }
+    if selected.len() != right_answers.len() { return false; }
+
+    let mut right = true;
+    for x in selected {
+        if !right_answers.contains(x) {
+            right = false;
+        }
+    }
+    right
 }
 
 fn cloc_position(current: &Option<usize>, len: usize, direct: u8) -> usize {
@@ -172,12 +199,14 @@ fn cloc_position(current: &Option<usize>, len: usize, direct: u8) -> usize {
 }
 
 fn draw_question(modernweb: &Modernweb, subject: &Subject, count: usize, length: usize, current: &Option<usize>, selected: &HashSet<usize>, pass: Option<bool>) {
+    let answer_type_text = if subject.multi_answer() { "多選" } else { "單選" };
     rprintln!(
-        "{}{}{}/{} 問題：{}{}",
+        "{}{}{}/{} ({}) 問題：{}{}",
         color::Fg(color::Cyan),
         style::Bold,
         count + 1,
         length,
+        answer_type_text,
         subject.question,
         style::Reset
     );
@@ -197,11 +226,26 @@ fn draw_question(modernweb: &Modernweb, subject: &Subject, count: usize, length:
             mark_selected
         )
     }
-    if let Some(false) = pass {
-        rprintln!(
-            "{}叭叭，答錯了 OAO\n{}",
-            color::Fg(color::LightRed),
-            style::Reset
-        );
+    rprintln!();
+    let note_text = "空  格： 選取答案\r\n方向鍵： 移動游標";
+    let multi_note_text = if subject.multi_answer() { "\r\n換行鍵： 確認答案" } else { "" };
+    rprintln!("{}{}{}", color::Fg(color::Green), note_text, multi_note_text);
+
+    match pass {
+        Some(true) => {
+            rprintln!(
+                "{}答對了，你好棒 owo\n{}",
+                color::Fg(color::Yellow),
+                style::Reset
+            );
+        }
+        Some(false) => {
+            rprintln!(
+                "{}叭叭，答錯了 OAO\n{}",
+                color::Fg(color::LightRed),
+                style::Reset
+            );
+        }
+        None => {}
     }
 }
