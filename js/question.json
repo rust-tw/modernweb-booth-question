@@ -1,0 +1,41 @@
+[
+  {
+    "question": "Rust 1.0 在哪一年釋出？\r\n1. 2012 年 2. 2013 年 3. 2014 年 4. 2015 年",
+    "answer": "4"
+  },
+
+  {
+    "question": "Rust.tw 的聚會時間在什麼時候？\r\n1. 每個月的最後一個星期六晚上七點半 2. 每個月的最後一個星期六晚上八點半 3. 每個月的最後一個星期六晚上九點半 4. 每個月的最後一個星期六晚上十點半",
+    "answer": "1"
+  },
+
+  {
+    "question": "以 Rust 開發的瀏覽器引擎叫什麼名字？\r\n1. Doge 2. Servo 3. Gecko 4. Wow",
+    "answer": "2"
+  },
+
+  {
+    "question": "2016年stackoverflow most loved language 是？\r\n1. Rust 2. Python 3. JavaScript 4. Kotlin 5. php",
+    "answer": "1"
+  },
+
+  {
+    "question": "2017年stackoverflow most loved language 是？\r\n1. Python 2. Rust 3. JavaScript 4. Kotlin 5. php",
+    "answer": "2"
+  },
+
+  {
+    "question": "2018年stackoverflow most loved language 是？\r\n1. JavaScript 2. Python 3. Rust 4. Kotlin 5. php",
+    "answer": "3"
+  },
+
+  {
+    "question": "2019年stackoverflow most loved language 是？\r\n1. Kotlin 2. Python 3. JavaScript 4. Rust 5. php",
+    "answer": "4"
+  },
+
+  {
+    "question": "Facebook 用 Rust 開發的區塊鏈數位貨幣叫做？\r\n1. LibreOffice 2. Doge 3. Libra 4. Facebook Coin",
+    "answer": "3"
+  }
+]
