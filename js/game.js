@@ -11,12 +11,20 @@ export function start(term) {
     if (ended) {
       return
     }
-    if (data === '\b') {
+    // Control sequences
+    if (data.charCodeAt(0) === 0x1b) {
+      // Ignore
+      return
+    }
+    term.write(data)
+    // backspace
+    if (data.length === 1 && data.charCodeAt(0) === 127) {
       buf = buf.slice(0, -1)
+      // Erase a char on terminal
+      term.write('\x1b[1D \x1b[1D')
     } else {
       buf += data
     }
-    term.write(data)
     if (!buf.endsWith('\r')) {
       return
     }
