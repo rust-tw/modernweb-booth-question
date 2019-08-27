@@ -27,3 +27,17 @@ $ cargo run
 ## About us
 
 We are Rust Taiwan. There is our chat group: [http://t.me/rust\_tw](http://t.me/rust_tw). Welcome to join us!
+
+## More version
+
+### More complex and more fun
+
+```sh
+$ git checkout multiple-choice
+```
+
+### Website version
+
+```sh
+$ git checkout wasm
+```
