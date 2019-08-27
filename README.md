@@ -41,3 +41,9 @@ $ git checkout multiple-choice
 ```sh
 $ git checkout wasm
 ```
+
+### Very simple version
+
+```sh
+$ git checkout playground
+```
