@@ -16,12 +16,16 @@ $ curl https://sh.rustup.rs -sSf | sh
 $ git clone https://github.com/lili668668/modernweb-booth-question.git
 ```
 
-4. Go to the project and run the code
+4. Go to the project and build it
 
 ```sh
 $ cd modernweb-booth-question
 
-$ cargo run
+$ git checkout wasm
+
+$ cargo install wasm-pack
+
+$ yarn build # or npm run build
 ```
 
 ## About us

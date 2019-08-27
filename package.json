@@ -5,6 +5,7 @@
     "@wasm-tool/wasm-pack-plugin": "^1.0.0",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
+    "gh-pages": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.39.2",
@@ -12,5 +13,9 @@
   },
   "dependencies": {
     "xterm": "^3.14.5"
+  },
+  "scripts": {
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
   }
 }
