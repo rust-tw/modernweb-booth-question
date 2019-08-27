@@ -4,7 +4,6 @@ import question from './question.json'
 export function start(term) {
   let ended = false
   const game = new Game(question.length)
-  console.log(game)
   game.next_question(question.shift())
   term.write(game.render())
   let buf = ''
@@ -18,13 +17,11 @@ export function start(term) {
       buf += data
     }
     term.write(data)
-    console.log(JSON.stringify(data))
     if (!buf.endsWith('\r')) {
       return
     }
 
     const { correct, message } = game.input(buf)
-    console.log(correct)
     term.write('\n' + message)
     buf = ''
     if (correct) {
