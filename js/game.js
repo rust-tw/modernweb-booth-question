@@ -19,6 +19,9 @@ export function start(term) {
     term.write(data)
     // backspace
     if (data.length === 1 && data.charCodeAt(0) === 127) {
+      if (!buf) {
+        return
+      }
       buf = buf.slice(0, -1)
       // Erase a char on terminal
       term.write('\x1b[1D \x1b[1D')
