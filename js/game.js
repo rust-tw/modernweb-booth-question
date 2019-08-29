@@ -1,10 +1,8 @@
 import { Game } from '../pkg/index.js'
-import question from './question.json'
 
 export function start(term) {
   let ended = false
   const game = new Game(question.length)
-  game.next_question(question.shift())
   term.write(game.render())
   let buf = ''
   term.on('data', data => {
@@ -36,9 +34,7 @@ export function start(term) {
     term.write('\n' + message)
     buf = ''
     if (correct) {
-      const subject = question.shift()
-      if (subject) {
-        game.next_question(subject)
+      if (game.next_question()) {
         term.write(game.render())
       } else {
         term.write(game.end())

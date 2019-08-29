@@ -13,21 +13,19 @@ lto = true
 [dependencies]
 colored = "1.8.0"
 serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
+
+[dependencies.once_cell]
+version =  "0.2.7"
+default-features = false
 
 [dependencies.wasm-bindgen]
 version = "0.2.45"
 features = ["serde-serialize"]
 
-[dependencies.web-sys]
-version = "0.3.22"
-features = ["console"]
-
 [target."cfg(debug_assertions)".dependencies]
 console_error_panic_hook = "0.1.5"
 
-[dev-dependencies]
-wasm-bindgen-test = "0.2.45"
-futures = "0.1.27"
-js-sys = "0.3.22"
-wasm-bindgen-futures = "0.3.22"
+[build-dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+quote = "1.0.2"

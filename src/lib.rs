@@ -1,12 +1,15 @@
 use colored::*;
-use serde::{Deserialize, Serialize};
+use once_cell::sync::Lazy;
+use serde::Serialize;
 use wasm_bindgen::prelude::*;
 
-#[derive(Debug, Default, Deserialize)]
+#[derive(Debug, Default)]
 pub struct Subject {
     question: String,
     answer: String,
 }
+
+include!(concat!(env!("OUT_DIR"), "/subjects.rs"));
 
 #[derive(Serialize)]
 pub struct AnswerResult {
@@ -16,33 +19,30 @@ pub struct AnswerResult {
 
 #[wasm_bindgen]
 pub struct Game {
-    count: usize,
+    current: usize,
     length: usize,
-    subject: Subject,
 }
 
 #[wasm_bindgen]
 impl Game {
     #[wasm_bindgen(constructor)]
     pub fn new(length: usize) -> Self {
-        Game {
-            length,
-            count: 0,
-            subject: Subject::default(),
-        }
+        Game { length, current: 0 }
     }
 
     #[wasm_bindgen]
-    pub fn next_question(&mut self, subject: JsValue) {
-        self.count += 1;
-        self.subject = subject.into_serde().unwrap();
+    pub fn next_question(&mut self) -> bool {
+        self.current += 1;
+        self.current < SUBJECTS.len()
     }
 
     #[wasm_bindgen]
     pub fn render(&self) -> String {
         let question = format!(
             "{}/{} 問題：{}\r",
-            self.count, self.length, self.subject.question
+            self.current + 1,
+            self.length,
+            SUBJECTS[self.current].question
         );
 
         format!(
@@ -54,7 +54,7 @@ impl Game {
 
     #[wasm_bindgen]
     pub fn input(&self, guess: String) -> JsValue {
-        let res = if guess.trim().to_lowercase() == self.subject.answer {
+        let res = if guess.trim().to_lowercase() == SUBJECTS[self.current].answer {
             AnswerResult {
                 correct: true,
                 message: format!("{}", "答對了，你好棒 owo\r\n\r".yellow()),
